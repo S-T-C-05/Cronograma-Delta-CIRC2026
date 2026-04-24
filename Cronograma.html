@@ -195,6 +195,35 @@
     .fc .fc-toolbar { flex-direction: column; gap: 1rem; }
   }
 
+  
+  /* --- STATUS BADGES & CONTROLS --- */
+  .status-select { 
+    padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 600;
+    border: 1px solid transparent; cursor: pointer; outline: none; appearance: none;
+    transition: all 0.2s; 
+  }
+  .status-en-proceso { background-color: #fff3cd; color: #856404; border-color: #ffeeba; }
+  .status-finalizado { background-color: #d1e7dd; color: #155724; border-color: #c3e6cb; }
+  .status-no-finalizado { background-color: #f8d7da; color: #721c24; border-color: #f5c6cb; }
+  
+  .date-input {
+    padding: 6px; border: 1px solid var(--border-color); border-radius: 6px;
+    font-size: 13px; color: var(--text-main); font-family: inherit; width: 130px;
+    background: #f8f9fa;
+  }
+  .date-input:focus { border-color: var(--primary); background: #fff; outline: none; }
+  
+  .highlight-row { border-left: 4px solid var(--primary) !important; background-color: rgba(13, 110, 253, 0.02) !important; }
+  .important-icon { color: var(--primary); margin-right: 5px; }
+
+  /* Notification Toast */
+  .toast {
+    position: fixed; bottom: 20px; right: 20px; background: #333; color: #fff;
+    padding: 12px 24px; border-radius: 8px; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    opacity: 0; transform: translateY(20px); transition: all 0.3s; pointer-events: none; z-index: 1000;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+
   /* --- TABS --- */
   .tab-container { margin-top: 2rem; }
   .tab-buttons { display: flex; border-bottom: 2px solid var(--border-color); margin-bottom: 1.5rem; gap: 0.5rem; flex-wrap: wrap; }
@@ -254,6 +283,7 @@
           month: 'Mes',
           year: 'Año'
         },
+        
         events: function(info, successCallback, failureCallback) {
           const rawEvents = [
             // CHASIS
@@ -304,11 +334,37 @@
                   current.setDate(current.getDate() + 1);
               }
           });
+          
+          // INYECTAR ENTREGABLES DINAMICOS DESDE LOCALSTORAGE
+          const currentDeliverables = JSON.parse(localStorage.getItem('circ_deliverables')) || initialDeliverables;
+          currentDeliverables.forEach(d => {
+             let clr = '#ffc107'; // en-proceso
+             if(d.status === 'finalizado') clr = '#198754';
+             if(d.status === 'no-finalizado') clr = '#dc3545';
+             expandedEvents.push({
+                title: '📍 Entregable: ' + d.name,
+                start: d.date,
+                color: clr, // color depends on status
+                allDay: true
+             });
+          });
+
           successCallback(expandedEvents);
         }
       });
       calendar.render();
+      
+      // Store in global window so we can refetch easily
+      window.circCalendar = calendar;
     });
+
+    function updateCalendarEvents() {
+        if(window.circCalendar) {
+            window.circCalendar.refetchEvents();
+        }
+    }
+  </script>
+
   </script>
   
       <!-- Fix para el renderizado del calendario al cambiar de pestaña -->
@@ -499,46 +555,117 @@
 
     <!-- PESTAÑA SEGUIMIENTO DE ENTREGABLES -->
     <div id="entregables" class="tab-content">
-      <h2 style="margin-bottom: 2rem;">Seguimiento de Entregables</h2>
-      <table>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h2>Seguimiento de Entregables</h2>
+        <button class="fc-button-primary" style="border:none; padding: 8px 16px; border-radius: 8px; cursor:pointer;" onclick="resetDeliverables()">Resetear Cambios</button>
+      </div>
+      
+      <table id="deliverablesTable">
         <thead>
           <tr>
-            <th style="width: 20%;">Semana / Fechas</th>
-            <th style="width: 45%;">Actividad / Hito</th>
-            <th style="width: 35%;">Detalles</th>
+            <th style="width: 25%;">Hito / Entregable</th>
+            <th style="width: 15%;">Responsable</th>
+            <th style="width: 20%;">Fecha Programada</th>
+            <th style="width: 20%;">Estado</th>
+            <th style="width: 20%;">Reprogramar (No Finalizado)</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td><strong>Semana 3</strong><br><span style="color: var(--text-muted)">17 May – 23 May</span></td>
-            <td>Prueba + capacitación de telecomms</td>
-            <td><ul><li>Control de Xbox</li><li>Integración de IMU</li></ul></td>
-          </tr>
-          <tr>
-            <td rowspan="2" style="vertical-align: middle;"><strong>Semana 5</strong><br><span style="color: var(--text-muted)">31 May – 6 Jun</span></td>
-            <td>Chasis funcional</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Simulación funcional del brazo</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td><strong>Semana 10</strong><br><span style="color: var(--text-muted)">5 Jul – 11 Jul</span></td>
-            <td>Chasis funcional + PCB + sensores</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td><strong>Semana 12</strong><br><span style="color: var(--text-muted)">19 Jul – 25 Jul</span></td>
-            <td>Brazo funcional + PCB</td>
-            <td></td>
-          </tr>
+        <tbody id="deliverablesBody">
+          <!-- Renderizado dinamicamente -->
         </tbody>
       </table>
     </div>
   </div>
 
+  <div id="toast" class="toast">Cronograma actualizado!</div>
+
   <script>
+    // ESTADO INICIAL
+    const initialDeliverables = [
+      { id: 'd1', name: "Prueba + capacitación telecomms", responsible: "Luis y Gerardo", date: "2026-05-17", status: "en-proceso", important: false },
+      { id: 'd2', name: "Chasis funcional", responsible: "Milton y Said", date: "2026-05-31", status: "en-proceso", important: true },
+      { id: 'd3', name: "Simulación funcional del brazo", responsible: "Angel y Raul", date: "2026-05-31", status: "en-proceso", important: false },
+      { id: 'd4', name: "Chasis funcional + PCB + sensores", responsible: "Milton, Said, Luis", date: "2026-07-05", status: "en-proceso", important: true },
+      { id: 'd5', name: "Brazo funcional + PCB", responsible: "Angel, Raul, Gerardo", date: "2026-07-19", status: "en-proceso", important: true }
+    ];
+
+    let deliverables = JSON.parse(localStorage.getItem('circ_deliverables')) || initialDeliverables;
+
+    function renderTable() {
+      const tbody = document.getElementById('deliverablesBody');
+      tbody.innerHTML = '';
+      
+      deliverables.forEach((item, index) => {
+        const row = document.createElement('tr');
+        if (item.important) row.classList.add('highlight-row');
+        
+        const canReschedule = item.status === 'no-finalizado';
+        
+        row.innerHTML = `
+          <td>${item.important ? '<span class="important-icon">★</span>' : ''}<strong>${item.name}</strong></td>
+          <td>${item.responsible}</td>
+          <td><strong>${formatDate(item.date)}</strong></td>
+          <td>
+            <select class="status-select status-${item.status}" onchange="updateStatus('${item.id}', this.value)">
+              <option value="en-proceso" ${item.status === 'en-proceso' ? 'selected' : ''}>En Proceso</option>
+              <option value="finalizado" ${item.status === 'finalizado' ? 'selected' : ''}>Finalizado</option>
+              <option value="no-finalizado" ${item.status === 'no-finalizado' ? 'selected' : ''}>No Finalizado</option>
+            </select>
+          </td>
+          <td>
+            ${canReschedule ? `<input type="date" class="date-input" value="${item.date}" onchange="updateDate('${item.id}', this.value)">` : '<span style="color: #adb5bd; font-size: 13px;">N/A</span>'}
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function updateStatus(id, newStatus) {
+      const item = deliverables.find(d => d.id === id);
+      if(item) {
+        item.status = newStatus;
+        saveAndReload();
+      }
+    }
+
+    function updateDate(id, newDate) {
+      if(!newDate) return;
+      const item = deliverables.find(d => d.id === id);
+      if(item) {
+        item.date = newDate;
+        item.status = 'en-proceso'; // Vuelve a estar en proceso si se reprograma
+        showToast('Fecha reprogramada. El calendario se ha actualizado.');
+        saveAndReload();
+      }
+    }
+
+    function saveAndReload() {
+      localStorage.setItem('circ_deliverables', JSON.stringify(deliverables));
+      renderTable();
+      updateCalendarEvents(); // Actualizar FullCalendar
+    }
+
+    function resetDeliverables() {
+      if(confirm('¿Estás seguro de que deseas resetear los entregables a su estado original?')) {
+        deliverables = JSON.parse(JSON.stringify(initialDeliverables));
+        saveAndReload();
+        showToast('Entregables reseteados al plan original.');
+      }
+    }
+
+    function formatDate(dateStr) {
+      const options = { day: 'numeric', month: 'short', year: 'numeric' };
+      return new Date(dateStr + 'T00:00:00').toLocaleDateString('es-ES', options);
+    }
+    
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // Funcionalidad de pestañas
     function openTab(tabId, btn) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -550,8 +677,10 @@
          setTimeout(() => window.dispatchEvent(new Event('resize')), 50);
       }
     }
-  </script>
 
-</div>
+    document.addEventListener('DOMContentLoaded', () => {
+      renderTable();
+    });
+  </script>
 </body>
 </html>
