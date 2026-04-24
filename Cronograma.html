@@ -318,28 +318,28 @@
       var calendarEl = document.getElementById('calendar');
       
       const rawPhases = [
-         { title: 'Chasis Fase 1', start: '2026-04-23', end: '2026-05-07', color: 'var(--chasis-color)' },
-         { title: 'Chasis Fase 2', start: '2026-05-07', end: '2026-05-21', color: 'var(--chasis-color)' },
-         { title: 'Chasis Fase 3', start: '2026-05-21', end: '2026-06-11', color: 'var(--chasis-color)' },
-         { title: 'Chasis Fase 4', start: '2026-06-11', end: '2026-07-01', color: 'var(--chasis-color)' },
-         { title: 'Chasis Fase 5', start: '2026-07-01', end: '2026-07-16', color: 'var(--chasis-color)' },
-         { title: 'Chasis Fase 6', start: '2026-07-16', end: '2026-08-01', color: 'var(--chasis-color)' },
+         { title: 'Chasis Fase 1', start: '2026-04-23', end: '2026-05-07', color: 'var(--chasis-color)', targetId: 'chasis-title' },
+         { title: 'Chasis Fase 2', start: '2026-05-07', end: '2026-05-21', color: 'var(--chasis-color)', targetId: 'chasis-title' },
+         { title: 'Chasis Fase 3', start: '2026-05-21', end: '2026-06-11', color: 'var(--chasis-color)', targetId: 'chasis-title' },
+         { title: 'Chasis Fase 4', start: '2026-06-11', end: '2026-07-01', color: 'var(--chasis-color)', targetId: 'chasis-title' },
+         { title: 'Chasis Fase 5', start: '2026-07-01', end: '2026-07-16', color: 'var(--chasis-color)', targetId: 'chasis-title' },
+         { title: 'Chasis Fase 6', start: '2026-07-16', end: '2026-08-01', color: 'var(--chasis-color)', targetId: 'chasis-title' },
          
-         { title: 'Brazo Fase 1', start: '2026-04-23', end: '2026-05-07', color: 'var(--brazo-color)' },
-         { title: 'Brazo Fase 2', start: '2026-05-07', end: '2026-05-21', color: 'var(--brazo-color)' },
-         { title: 'Brazo Fase 3', start: '2026-05-21', end: '2026-06-11', color: 'var(--brazo-color)' },
-         { title: 'Brazo Fase 4', start: '2026-06-11', end: '2026-07-01', color: 'var(--brazo-color)' },
-         { title: 'Brazo Fase 5', start: '2026-07-01', end: '2026-07-16', color: 'var(--brazo-color)' },
-         { title: 'Brazo Fase 6', start: '2026-07-16', end: '2026-08-01', color: 'var(--brazo-color)' },
+         { title: 'Brazo Fase 1', start: '2026-04-23', end: '2026-05-07', color: 'var(--brazo-color)', targetId: 'brazo-title' },
+         { title: 'Brazo Fase 2', start: '2026-05-07', end: '2026-05-21', color: 'var(--brazo-color)', targetId: 'brazo-title' },
+         { title: 'Brazo Fase 3', start: '2026-05-21', end: '2026-06-11', color: 'var(--brazo-color)', targetId: 'brazo-title' },
+         { title: 'Brazo Fase 4', start: '2026-06-11', end: '2026-07-01', color: 'var(--brazo-color)', targetId: 'brazo-title' },
+         { title: 'Brazo Fase 5', start: '2026-07-01', end: '2026-07-16', color: 'var(--brazo-color)', targetId: 'brazo-title' },
+         { title: 'Brazo Fase 6', start: '2026-07-16', end: '2026-08-01', color: 'var(--brazo-color)', targetId: 'brazo-title' },
 
-         { title: 'mROS Fase 1', start: '2026-04-23', end: '2026-05-07', color: 'var(--microros-color)' },
-         { title: 'mROS Fase 2', start: '2026-05-07', end: '2026-05-21', color: 'var(--microros-color)' },
-         { title: 'mROS Fase 3', start: '2026-05-21', end: '2026-06-11', color: 'var(--microros-color)' },
-         { title: 'mROS Fase 4', start: '2026-06-11', end: '2026-07-01', color: 'var(--microros-color)' },
-         { title: 'mROS Fase 5', start: '2026-07-01', end: '2026-07-16', color: 'var(--microros-color)' },
-         { title: 'mROS Fase 6', start: '2026-07-16', end: '2026-08-01', color: 'var(--microros-color)' },
+         { title: 'mROS Fase 1', start: '2026-04-23', end: '2026-05-07', color: 'var(--microros-color)', targetId: 'microros-title' },
+         { title: 'mROS Fase 2', start: '2026-05-07', end: '2026-05-21', color: 'var(--microros-color)', targetId: 'microros-title' },
+         { title: 'mROS Fase 3', start: '2026-05-21', end: '2026-06-11', color: 'var(--microros-color)', targetId: 'microros-title' },
+         { title: 'mROS Fase 4', start: '2026-06-11', end: '2026-07-01', color: 'var(--microros-color)', targetId: 'microros-title' },
+         { title: 'mROS Fase 5', start: '2026-07-01', end: '2026-07-16', color: 'var(--microros-color)', targetId: 'microros-title' },
+         { title: 'mROS Fase 6', start: '2026-07-16', end: '2026-08-01', color: 'var(--microros-color)', targetId: 'microros-title' },
 
-         { title: '🏆 Competencia CIRC', start: '2026-08-01', end: '2026-08-08', color: '#dc3545' }
+         { title: '🏆 Competencia CIRC', start: '2026-08-01', end: '2026-08-08', color: '#dc3545', targetId: 'chasis-title' }
       ];
 
       var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -380,7 +380,7 @@
            if(activePhases.length > 0) {
               htmlContent += '<h4 style="margin-top:0; font-size:15px; color:#495057; border-bottom: 2px solid #e9ecef; padding-bottom:5px;">Fases en Curso</h4>';
               activePhases.forEach(p => {
-                 htmlContent += `<div style="background: ${p.color}; color: white; padding: 6px 12px; margin-bottom: 6px; border-radius: 6px; font-weight: 600; font-size: 14px;">${p.title}</div>`;
+                 htmlContent += `<div onclick="closeDayModal(); goToPhase('${p.targetId}')" style="background: ${p.color}; color: white; padding: 6px 12px; margin-bottom: 6px; border-radius: 6px; font-weight: 600; font-size: 14px; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'" title="Ir a la descripción de esta fase">${p.title}</div>`;
               });
            }
            
@@ -945,33 +945,84 @@
     let deliverables = JSON.parse(localStorage.getItem('circ_deliverables')) || initialDeliverables;
 
     function renderTable() {
-      const tbody = document.getElementById('deliverablesBody');
-      tbody.innerHTML = '';
-      
-      deliverables.forEach((item, index) => {
-        const row = document.createElement('tr');
-        if (item.important) row.classList.add('highlight-row');
+        const container = document.getElementById('tablesContainer');
+        container.innerHTML = '';
         
-        const canReschedule = item.status === 'no-finalizado';
+        const groups = {
+           "Chasis": [],
+           "Brazo Robótico": [],
+           "Integración Múltiple (mROS, Telecomms, PCB)": [],
+           "Otros / Competencia": []
+        };
         
-        row.innerHTML = `
-          <td>${item.important ? '<span class="important-icon">★</span>' : ''}<strong>${item.name}</strong></td>
-          <td>${item.responsible}</td>
-          <td><strong>${formatDate(item.date)}</strong></td>
-          <td>
-            <select class="status-select status-${item.status}" onchange="updateStatus('${item.id}', this.value)">
-              <option value="en-proceso" ${item.status === 'en-proceso' ? 'selected' : ''}>En Proceso</option>
-              <option value="finalizado" ${item.status === 'finalizado' ? 'selected' : ''}>Finalizado</option>
-              <option value="no-finalizado" ${item.status === 'no-finalizado' ? 'selected' : ''}>No Finalizado</option>
-            </select>
-          </td>
-          <td>
-            ${canReschedule ? `<input type="date" class="date-input" value="${item.date}" onchange="updateDate('${item.id}', this.value)">` : '<span style="color: #adb5bd; font-size: 13px;">N/A</span>'}
-          </td>
-        `;
-        tbody.appendChild(row);
-      });
-    }
+        deliverables.forEach((item) => {
+            if (/chasis/i.test(item.name)) {
+                groups["Chasis"].push(item);
+            } else if (/brazo/i.test(item.name)) {
+                groups["Brazo Robótico"].push(item);
+            } else if (/telecomms|pcb|mros/i.test(item.name)) {
+                groups["Integración Múltiple (mROS, Telecomms, PCB)"].push(item);
+            } else {
+                groups["Otros / Competencia"].push(item);
+            }
+        });
+        
+        for(let g in groups) {
+           if(groups[g].length === 0) continue;
+           
+           const sectionTitle = document.createElement('h3');
+           sectionTitle.style.marginTop = "2.5rem";
+           sectionTitle.style.marginBottom = "1rem";
+           sectionTitle.style.color = "var(--primary)";
+           sectionTitle.style.fontSize = "1.3rem";
+           sectionTitle.style.borderBottom = "2px solid #e9ecef";
+           sectionTitle.style.paddingBottom = "5px";
+           sectionTitle.innerText = g;
+           container.appendChild(sectionTitle);
+           
+           const table = document.createElement('table');
+           table.id = "tabla-" + g.replace(/\s+/g, '');
+           table.innerHTML = `
+              <thead>
+                <tr>
+                  <th style="width: 25%;">Hito / Entregable</th>
+                  <th style="width: 15%;">Responsable</th>
+                  <th style="width: 20%;">Fecha Programada</th>
+                  <th style="width: 20%;">Estado</th>
+                  <th style="width: 20%;">Reprogramar</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+           `;
+           container.appendChild(table);
+           
+           const tbody = table.querySelector('tbody');
+           groups[g].forEach((item) => {
+              const row = document.createElement('tr');
+              if (item.important) row.classList.add('highlight-row');
+              
+              const canReschedule = item.status === 'no-finalizado';
+              
+              row.innerHTML = `
+                <td>${item.important ? '<span class="important-icon">★</span>' : ''}<strong>${item.name}</strong></td>
+                <td>${item.responsible}</td>
+                <td><strong>${formatDate(item.date)}</strong></td>
+                <td>
+                  <select class="status-select status-${item.status}" onchange="updateStatus('${item.id}', this.value)">
+                    <option value="en-proceso" ${item.status === 'en-proceso' ? 'selected' : ''}>En Proceso</option>
+                    <option value="finalizado" ${item.status === 'finalizado' ? 'selected' : ''}>Finalizado</option>
+                    <option value="no-finalizado" ${item.status === 'no-finalizado' ? 'selected' : ''}>No Finalizado</option>
+                  </select>
+                </td>
+                <td>
+                  ${canReschedule ? `<input type="date" class="date-input" value="${item.date}" onchange="updateDate('${item.id}', this.value)">` : '<span style="color: #adb5bd; font-size: 13px;">N/A</span>'}
+                </td>
+              `;
+              tbody.appendChild(row);
+             });
+          }
+      }
 
     function updateStatus(id, newStatus) {
       const item = deliverables.find(d => d.id === id);
@@ -1051,6 +1102,25 @@
 </div>
 
 <script>
+
+function goToPhase(targetId) {
+    const tabBtn = document.querySelector('button[onclick*="descripcion"]');
+    if (tabBtn) openTab('descripcion', tabBtn);
+    setTimeout(() => {
+       const target = document.querySelector('.' + targetId);
+       if(target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          const originalBg = target.style.backgroundColor;
+          target.style.transition = "background 0.5s ease";
+          target.style.backgroundColor = "#fff3cd";
+          target.style.borderRadius = "8px";
+          setTimeout(() => {
+             target.style.backgroundColor = originalBg; 
+          }, 1200);
+       }
+    }, 100);
+}
+
 function closeDayModal() {
   document.getElementById('dayModal').classList.remove('active');
 }
