@@ -313,6 +313,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       
+      
       var calendarEl = document.getElementById('calendar');
       var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
@@ -329,12 +330,8 @@
         // Custom Render for Phases and Deliverables
         eventContent: function(arg) {
            const props = arg.event.extendedProps;
-           // UI for long running Phase
-           if (props.type === 'phase') {
-              return { html: `<div class="fc-event-phase" style="--fc-bg-color: ${arg.event.backgroundColor}" title="Ir a descripción de ${arg.event.title}">${arg.event.title}</div>` };
-           } 
            // UI for Deliverables (dot + truncated short text)
-           else if (props.type === 'deliverable') {
+           if (props.type === 'deliverable') {
               return { html: `<div class="fc-event-deliv" title="Ver entregable: ${arg.event.extendedProps.rawName}"><div class="fc-deliv-dot" style="background:${arg.event.backgroundColor}"></div>${arg.event.title}</div>` };
            }
         },
@@ -342,30 +339,8 @@
         // EVENT CLICK ROUTING
         eventClick: function(info) {
            const props = info.event.extendedProps;
-           // If user clicks a Phase, Navigate to it precisely.
-           if (props.type === 'phase') {
-              // open TAB Description
-              const tabBtn = document.querySelector('button[onclick*="descripcion"]');
-              if (tabBtn) openTab('descripcion', tabBtn);
-              
-              // Scroll to the specific project phase title
-              setTimeout(() => {
-                 const target = document.querySelector('.' + props.targetId);
-                 if(target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    // Highlight flash effect
-                    const originalBg = target.style.backgroundColor;
-                    target.style.transition = "background 0.5s ease";
-                    target.style.backgroundColor = "#fff3cd";
-                    target.style.borderRadius = "8px";
-                    setTimeout(() => {
-                       target.style.backgroundColor = originalBg; 
-                    }, 1200);
-                 }
-              }, 100);
-           } 
            // If user clicks a Deliverable, Open Modal
-           else if (props.type === 'deliverable') {
+           if (props.type === 'deliverable') {
               openModal(
                  "Detalles del Entregable", 
                  props.project, 
@@ -377,33 +352,7 @@
         },
 
         events: function(info, successCallback, failureCallback) {
-          // BACKGROUND CONTINOUS PHASES
-          const rawPhases = [
-            { title: 'Chasis Fase 1', start: '2026-04-23', end: '2026-05-07', color: 'var(--chasis-color)', extendedProps: {type: 'phase', targetId: 'chasis-title'} },
-            { title: 'Chasis Fase 2', start: '2026-05-07', end: '2026-05-21', color: 'var(--chasis-color)', extendedProps: {type: 'phase', targetId: 'chasis-title'} },
-            { title: 'Chasis Fase 3', start: '2026-05-21', end: '2026-06-11', color: 'var(--chasis-color)', extendedProps: {type: 'phase', targetId: 'chasis-title'} },
-            { title: 'Chasis Fase 4', start: '2026-06-11', end: '2026-07-01', color: 'var(--chasis-color)', extendedProps: {type: 'phase', targetId: 'chasis-title'} },
-            { title: 'Chasis Fase 5', start: '2026-07-01', end: '2026-07-16', color: 'var(--chasis-color)', extendedProps: {type: 'phase', targetId: 'chasis-title'} },
-            { title: 'Chasis Fase 6', start: '2026-07-16', end: '2026-08-01', color: 'var(--chasis-color)', extendedProps: {type: 'phase', targetId: 'chasis-title'} },
-            
-            { title: 'Brazo Fase 1', start: '2026-04-23', end: '2026-05-07', color: 'var(--brazo-color)', extendedProps: {type: 'phase', targetId: 'brazo-title'} },
-            { title: 'Brazo Fase 2', start: '2026-05-07', end: '2026-05-21', color: 'var(--brazo-color)', extendedProps: {type: 'phase', targetId: 'brazo-title'} },
-            { title: 'Brazo Fase 3', start: '2026-05-21', end: '2026-06-11', color: 'var(--brazo-color)', extendedProps: {type: 'phase', targetId: 'brazo-title'} },
-            { title: 'Brazo Fase 4', start: '2026-06-11', end: '2026-07-01', color: 'var(--brazo-color)', extendedProps: {type: 'phase', targetId: 'brazo-title'} },
-            { title: 'Brazo Fase 5', start: '2026-07-01', end: '2026-07-16', color: 'var(--brazo-color)', extendedProps: {type: 'phase', targetId: 'brazo-title'} },
-            { title: 'Brazo Fase 6', start: '2026-07-16', end: '2026-08-01', color: 'var(--brazo-color)', extendedProps: {type: 'phase', targetId: 'brazo-title'} },
-
-            { title: 'mROS Fase 1', start: '2026-04-23', end: '2026-05-07', color: 'var(--microros-color)', extendedProps: {type: 'phase', targetId: 'microros-title'} },
-            { title: 'mROS Fase 2', start: '2026-05-07', end: '2026-05-21', color: 'var(--microros-color)', extendedProps: {type: 'phase', targetId: 'microros-title'} },
-            { title: 'mROS Fase 3', start: '2026-05-21', end: '2026-06-11', color: 'var(--microros-color)', extendedProps: {type: 'phase', targetId: 'microros-title'} },
-            { title: 'mROS Fase 4', start: '2026-06-11', end: '2026-07-01', color: 'var(--microros-color)', extendedProps: {type: 'phase', targetId: 'microros-title'} },
-            { title: 'mROS Fase 5', start: '2026-07-01', end: '2026-07-16', color: 'var(--microros-color)', extendedProps: {type: 'phase', targetId: 'microros-title'} },
-            { title: 'mROS Fase 6', start: '2026-07-16', end: '2026-08-01', color: 'var(--microros-color)', extendedProps: {type: 'phase', targetId: 'microros-title'} },
-
-            { title: '🏆 Competencia CIRC', start: '2026-08-01', end: '2026-08-08', color: '#dc3545', extendedProps: {type: 'phase', targetId: 'chasis-title'} }
-          ];
-
-          let allEvents = [...rawPhases];
+          let allEvents = [];
           
           // INYECTAR ENTREGABLES DINAMICOS COMO OBJETOS PIN-PUNTUALES
           const currentDeliverables = JSON.parse(localStorage.getItem('circ_deliverables')) || initialDeliverables;
@@ -448,6 +397,7 @@
       });
       calendar.render();
       window.circCalendar = calendar;
+
 
     });
 
