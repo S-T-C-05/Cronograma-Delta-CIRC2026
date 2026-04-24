@@ -582,12 +582,247 @@
   <script>
     // ESTADO INICIAL
     const initialDeliverables = [
-      { id: 'd1', name: "Prueba + capacitación telecomms", responsible: "Luis y Gerardo", date: "2026-05-17", status: "en-proceso", important: false },
-      { id: 'd2', name: "Chasis funcional", responsible: "Milton y Said", date: "2026-05-31", status: "en-proceso", important: true },
-      { id: 'd3', name: "Simulación funcional del brazo", responsible: "Angel y Raul", date: "2026-05-31", status: "en-proceso", important: false },
-      { id: 'd4', name: "Chasis funcional + PCB + sensores", responsible: "Milton, Said, Luis", date: "2026-07-05", status: "en-proceso", important: true },
-      { id: 'd5', name: "Brazo funcional + PCB", responsible: "Angel, Raul, Gerardo", date: "2026-07-19", status: "en-proceso", important: true }
-    ];
+      {
+            "id": "p_1",
+            "name": "[Chasis] Workspace ROS 2 listo.",
+            "responsible": "Milton y Said",
+            "date": "2026-05-06",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "p_2",
+            "name": "[Chasis] Teleop por comandos activo.",
+            "responsible": "Milton y Said",
+            "date": "2026-05-06",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "p_3",
+            "name": "[Chasis] Parada de emergencia operativa.",
+            "responsible": "Milton y Said",
+            "date": "2026-05-20",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "p_4",
+            "name": "[Chasis] Estructura TF base del chasis.",
+            "responsible": "Milton y Said",
+            "date": "2026-05-20",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "p_5",
+            "name": "[Chasis] Odometría publicando a 50Hz reales y filtrada.",
+            "responsible": "Milton y Said",
+            "date": "2026-06-10",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "p_6",
+            "name": "[Chasis] Follow Waypoints integrado (Nav2).",
+            "responsible": "Milton y Said",
+            "date": "2026-06-30",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "p_7",
+            "name": "[Chasis] Scripts de track autónomo.",
+            "responsible": "Milton y Said",
+            "date": "2026-06-30",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "p_8",
+            "name": "[Chasis] Foxglove web UI funcional para teleop de chasis.",
+            "responsible": "Milton y Said",
+            "date": "2026-07-15",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "p_9",
+            "name": "[Chasis] chasis_launch.py libre de errores.",
+            "responsible": "Milton y Said",
+            "date": "2026-07-31",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "p_10",
+            "name": "[Chasis] Bolsas de ROS comprobadas.",
+            "responsible": "Milton y Said",
+            "date": "2026-07-31",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "p_11",
+            "name": "[Chasis] Firmware y binarios de campo listos.",
+            "responsible": "Milton y Said",
+            "date": "2026-08-07",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "p_12",
+            "name": "[Brazo Robótico] Modelo visualizado y conectado en RViz sin errores.",
+            "responsible": "Angel y Raul",
+            "date": "2026-05-06",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "p_13",
+            "name": "[Brazo Robótico] Comandos simulados exitosos.",
+            "responsible": "Angel y Raul",
+            "date": "2026-05-20",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "p_14",
+            "name": "[Brazo Robótico] Brazo controlable por Joystick con latencia mínima.",
+            "responsible": "Angel y Raul",
+            "date": "2026-06-10",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "p_15",
+            "name": "[Brazo Robótico] Action Server de rutinas. Librería YAML configurada.",
+            "responsible": "Angel y Raul",
+            "date": "2026-06-30",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "p_16",
+            "name": "[Brazo Robótico] Módulo brazo en UI Foxglove y alertas de colisión/torque.",
+            "responsible": "Angel y Raul",
+            "date": "2026-07-15",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "p_17",
+            "name": "[Brazo Robótico] Tareas \"Heist\" y \"RoverCooked\" demostradas.",
+            "responsible": "Angel y Raul",
+            "date": "2026-07-31",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "p_18",
+            "name": "[Brazo Robótico] Operación final en evento.",
+            "responsible": "Angel y Raul",
+            "date": "2026-08-07",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "p_19",
+            "name": "[micro-ROS + STM32] Hardware con SO en tiempo real funcionando. Ping PC.",
+            "responsible": "Luis y Gerardo",
+            "date": "2026-05-06",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "p_20",
+            "name": "[micro-ROS + STM32] Firmware responsivo < 10ms a freno de emergencia.",
+            "responsible": "Luis y Gerardo",
+            "date": "2026-05-20",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "p_21",
+            "name": "[micro-ROS + STM32] Lazo cerrado de velocidad estabilizado desde PC con PWM real.",
+            "responsible": "Luis y Gerardo",
+            "date": "2026-06-10",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "p_22",
+            "name": "[micro-ROS + STM32] Estabilidad en la red micro-ROS (sin caídas continuas).",
+            "responsible": "Luis y Gerardo",
+            "date": "2026-06-30",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "p_23",
+            "name": "[micro-ROS + STM32] Auto-reconexión USB probada con el hardware \"Hot Plug\".",
+            "responsible": "Luis y Gerardo",
+            "date": "2026-07-15",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "p_24",
+            "name": "[micro-ROS + STM32] Latencia comprobada del control embebido en logs.",
+            "responsible": "Luis y Gerardo",
+            "date": "2026-07-31",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "p_25",
+            "name": "[micro-ROS + STM32] Archivos .bin generados y probados.",
+            "responsible": "Luis y Gerardo",
+            "date": "2026-08-07",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "d1",
+            "name": "Control de Xbox + Integración IMU (Telecomms)",
+            "responsible": "Luis y Gerardo",
+            "date": "2026-05-23",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "d2",
+            "name": "Chasis funcional (Semana 5)",
+            "responsible": "Milton y Said",
+            "date": "2026-06-06",
+            "status": "en-proceso",
+            "important": true
+      },
+      {
+            "id": "d3",
+            "name": "Simulación funcional del brazo (Semana 5)",
+            "responsible": "Angel y Raul",
+            "date": "2026-06-06",
+            "status": "en-proceso",
+            "important": false
+      },
+      {
+            "id": "d4",
+            "name": "Chasis funcional + PCB + sensores (Semana 10)",
+            "responsible": "Milton, Said, Luis, Gerardo",
+            "date": "2026-07-11",
+            "status": "en-proceso",
+            "important": true
+      },
+      {
+            "id": "d5",
+            "name": "Brazo funcional + PCB (Semana 12)",
+            "responsible": "Angel, Raul, Luis, Gerardo",
+            "date": "2026-07-25",
+            "status": "en-proceso",
+            "important": true
+      }
+];
 
     let deliverables = JSON.parse(localStorage.getItem('circ_deliverables')) || initialDeliverables;
 
