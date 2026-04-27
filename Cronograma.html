@@ -292,9 +292,9 @@
 <div class="container">
   <h1>Cronograma de Desarrollo de Software (CIRC 2026)</h1>
   <div class="header-info">
-    <strong>Fecha de Partida:</strong> Hoy (23 de Abril de 2026) <br>
-    <strong>Competencia:</strong> 7 de Agosto de 2026 <br>
-    <strong>Duración Total:</strong> ~107 Días
+    <strong>Fecha de Partida:</strong> Hoy (<span id="today-date">—</span>) <br>
+    <strong>Competencia:</strong> <span id="competition-date">—</span> <br>
+    <strong>Días restantes para la competencia:</strong> <span id="days-remaining">—</span>
   </div>
 
   
@@ -312,6 +312,40 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // --- Header dates (dynamic) ---
+      const msPerDay = 24 * 60 * 60 * 1000;
+      const today = new Date();
+      const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      const competitionDate = new Date(2026, 7, 7); // 7 Aug 2026 (month is 0-based)
+      const competitionMidnight = new Date(competitionDate.getFullYear(), competitionDate.getMonth(), competitionDate.getDate());
+
+      const formatEsDate = (d) => {
+        try {
+          const formatted = new Intl.DateTimeFormat('es-MX', { day: 'numeric', month: 'long', year: 'numeric' }).format(d);
+          const match = formatted.match(/^(\d{1,2}) de ([a-záéíóúñ]+) de (\d{4})$/i);
+          if (!match) return formatted;
+          const day = match[1];
+          const month = match[2];
+          const year = match[3];
+          const monthCapped = month.charAt(0).toUpperCase() + month.slice(1);
+          return `${day} de ${monthCapped} de ${year}`;
+        } catch {
+          const months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+          return `${d.getDate()} de ${months[d.getMonth()]} de ${d.getFullYear()}`;
+        }
+      };
+
+      const todayEl = document.getElementById('today-date');
+      const competitionEl = document.getElementById('competition-date');
+      const remainingEl = document.getElementById('days-remaining');
+
+      if (todayEl) todayEl.textContent = formatEsDate(todayMidnight);
+      if (competitionEl) competitionEl.textContent = formatEsDate(competitionMidnight);
+
+      if (remainingEl) {
+        const diffDays = Math.max(0, Math.round((competitionMidnight - todayMidnight) / msPerDay));
+        remainingEl.textContent = `${diffDays} día${diffDays === 1 ? '' : 's'}`;
+      }
       
       
       
