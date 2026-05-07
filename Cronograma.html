@@ -837,7 +837,7 @@
             "id": "p_11",
             "name": "[Chasis] Firmware y binarios de campo listos.",
             "responsible": "Milton y Said",
-            "date": "2026-08-07",
+        "date": "2026-07-24",
             "status": "en-proceso",
             "important": false
       },
@@ -893,7 +893,7 @@
             "id": "p_18",
             "name": "[Brazo Robótico] Operación final en evento.",
             "responsible": "Angel y Raul",
-            "date": "2026-08-07",
+        "date": "2026-07-24",
             "status": "en-proceso",
             "important": false
       },
@@ -949,7 +949,7 @@
             "id": "p_25",
             "name": "[micro-ROS + STM32] Archivos .bin generados y probados.",
             "responsible": "Luis y Gerardo",
-            "date": "2026-08-07",
+        "date": "2026-07-24",
             "status": "en-proceso",
             "important": false
       },
@@ -989,7 +989,7 @@
             "id": "d5",
             "name": "Brazo funcional + PCB (Semana 12)",
             "responsible": "Angel, Raul, Luis, Gerardo",
-            "date": "2026-07-25",
+        "date": "2026-07-18",
             "status": "en-proceso",
             "important": true
       }
@@ -1005,7 +1005,8 @@
            "Chasis": [],
            "Brazo Robótico": [],
            "Integración Múltiple (mROS, Telecomms, PCB)": [],
-           "micro-ROS + STM32": []
+         "micro-ROS + STM32": [],
+         "Otros / Competencia": []
         };
         
         deliverables.forEach((item) => {
@@ -1013,6 +1014,8 @@
                 groups["Chasis"].push(item);
             } else if (/brazo/i.test(item.name)) {
                 groups["Brazo Robótico"].push(item);
+        } else if (/micro-?ros|stm32/i.test(item.name)) {
+          groups["micro-ROS + STM32"].push(item);
             } else if (/telecomms|pcb|mros/i.test(item.name)) {
                 groups["Integración Múltiple (mROS, Telecomms, PCB)"].push(item);
             } else {
