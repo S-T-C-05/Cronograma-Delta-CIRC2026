@@ -138,6 +138,22 @@
     z-index: 5;
   }
 
+  /* --- COLCHÓN (BARRA DE PRUEBAS) --- */
+  .fc-event-buffer {
+    display: block;
+    width: 100%;
+    border-radius: 999px;
+    padding: 3px 10px;
+    background: linear-gradient(90deg, var(--secondary), var(--primary));
+    color: #fff;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+    font-size: 11px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.10);
+  }
+
   /* --- TABLAS --- */
   table {
     width: 100%;
@@ -357,23 +373,23 @@
         { title: 'Chasis Fase 3', start: '2026-05-28', end: '2026-06-18', color: 'var(--chasis-color)', targetId: 'chasis-title' },
         { title: 'Chasis Fase 4', start: '2026-06-18', end: '2026-07-03', color: 'var(--chasis-color)', targetId: 'chasis-title' },
         { title: 'Chasis Fase 5', start: '2026-07-03', end: '2026-07-14', color: 'var(--chasis-color)', targetId: 'chasis-title' },
-        { title: 'Chasis Fase 6', start: '2026-07-14', end: '2026-07-25', color: 'var(--chasis-color)', targetId: 'chasis-title' },
+        { title: 'Chasis Fase 6', start: '2026-07-14', end: '2026-07-18', color: 'var(--chasis-color)', targetId: 'chasis-title' },
          
         { title: 'Brazo Fase 1', start: '2026-04-23', end: '2026-05-14', color: 'var(--brazo-color)', targetId: 'brazo-title' },
         { title: 'Brazo Fase 2', start: '2026-05-14', end: '2026-05-28', color: 'var(--brazo-color)', targetId: 'brazo-title' },
         { title: 'Brazo Fase 3', start: '2026-05-28', end: '2026-06-18', color: 'var(--brazo-color)', targetId: 'brazo-title' },
         { title: 'Brazo Fase 4', start: '2026-06-18', end: '2026-07-03', color: 'var(--brazo-color)', targetId: 'brazo-title' },
         { title: 'Brazo Fase 5', start: '2026-07-03', end: '2026-07-14', color: 'var(--brazo-color)', targetId: 'brazo-title' },
-        { title: 'Brazo Fase 6', start: '2026-07-14', end: '2026-07-25', color: 'var(--brazo-color)', targetId: 'brazo-title' },
+         { title: 'Brazo Fase 6', start: '2026-07-14', end: '2026-07-18', color: 'var(--brazo-color)', targetId: 'brazo-title' },
 
          { title: 'mROS Fase 1', start: '2026-04-23', end: '2026-05-14', color: 'var(--microros-color)', targetId: 'microros-title' },
          { title: 'mROS Fase 2', start: '2026-05-14', end: '2026-05-28', color: 'var(--microros-color)', targetId: 'microros-title' },
          { title: 'mROS Fase 3', start: '2026-05-28', end: '2026-06-18', color: 'var(--microros-color)', targetId: 'microros-title' },
          { title: 'mROS Fase 4', start: '2026-06-18', end: '2026-07-03', color: 'var(--microros-color)', targetId: 'microros-title' },
          { title: 'mROS Fase 5', start: '2026-07-03', end: '2026-07-14', color: 'var(--microros-color)', targetId: 'microros-title' },
-         { title: 'mROS Fase 6', start: '2026-07-14', end: '2026-07-25', color: 'var(--microros-color)', targetId: 'microros-title' },
+         { title: 'mROS Fase 6', start: '2026-07-14', end: '2026-07-18', color: 'var(--microros-color)', targetId: 'microros-title' },
 
-         { title: 'Colchón (Buffer) Pre-Competencia', start: '2026-07-25', end: '2026-08-01', color: 'var(--secondary)', targetId: 'chasis-title' },
+         { title: 'Colchón (Buffer) Pre-Competencia', start: '2026-07-18', end: '2026-08-01', color: 'var(--secondary)', targetId: 'chasis-title' },
 
          { title: '🏆 Competencia CIRC', start: '2026-08-01', end: '2026-08-08', color: '#dc3545', targetId: 'chasis-title' }
       ];
@@ -397,6 +413,9 @@
            if (props.type === 'deliverable') {
               return { html: `<div class="fc-event-deliv" title="Ver entregable: ${arg.event.extendedProps.rawName}"><div class="fc-deliv-dot" style="background:${arg.event.backgroundColor}"></div>${arg.event.title}</div>` };
            }
+            if (props.type === 'buffer') {
+              return { html: `<div class="fc-event-buffer" title="Colchón para pruebas">Colchón · Pruebas</div>` };
+            }
         },
         
         // CLICK ON DAY CELLS
@@ -502,10 +521,10 @@
              });
           });
 
-          // COLCHÓN VISIBLE EN CALENDARIO (1 semana antes del CIRC)
+           // COLCHÓN VISIBLE EN CALENDARIO (2 semanas antes del CIRC)
           allEvents.push({
              title: 'Colchón (Buffer)',
-             start: '2026-07-25',
+             start: '2026-07-18',
              end: '2026-08-01',
              allDay: true,
              backgroundColor: 'var(--secondary)',
@@ -586,14 +605,14 @@
         <td><ul><li>Foxglove web UI funcional para teleop de chasis.</li></ul></td>
       </tr>
       <tr>
-        <td><span class="phase-title">Fase 6: Pruebas (Integración)</span><br><span class="days-badge">11 Días</span></td>
-        <td>14 Jul – 24 Jul</td>
+        <td><span class="phase-title">Fase 6: Pruebas (Integración)</span><br><span class="days-badge">4 Días</span></td>
+        <td>14 Jul – 17 Jul</td>
         <td>Integración en entorno completo "Full Stack". Depuración y Dry-runs en terreno irregular.</td>
         <td><ul><li>chasis_launch.py libre de errores.</li><li>Bolsas de ROS comprobadas.</li></ul></td>
       </tr>
       <tr>
-        <td><span class="phase-title">Fase 7: Colchón (Buffer)</span><br><span class="days-badge">7 Días</span></td>
-        <td>25 Jul – 31 Jul</td>
+        <td><span class="phase-title">Fase 7: Colchón (Buffer)</span><br><span class="days-badge">14 Días</span></td>
+        <td>18 Jul – 31 Jul</td>
         <td>Semana reservada para contingencias: correcciones rápidas, pruebas finales, documentación y preparación logística.</td>
         <td><ul><li>Checklist final y paquete de despliegue listo.</li></ul></td>
       </tr>
@@ -649,14 +668,14 @@
         <td><ul><li>Módulo brazo en UI Foxglove y alertas de colisión/torque.</li></ul></td>
       </tr>
       <tr>
-        <td><span class="phase-title">Fase 6: Pruebas (Integración)</span><br><span class="days-badge">11 Días</span></td>
-        <td>14 Jul – 24 Jul</td>
+        <td><span class="phase-title">Fase 6: Pruebas (Integración)</span><br><span class="days-badge">4 Días</span></td>
+        <td>14 Jul – 17 Jul</td>
         <td>Manipulación de objetos del mundo real (botellas, rocas calibradas, teclados).</td>
         <td><ul><li>Tareas "Heist" y "RoverCooked" demostradas.</li></ul></td>
       </tr>
       <tr>
-        <td><span class="phase-title">Fase 7: Colchón (Buffer)</span><br><span class="days-badge">7 Días</span></td>
-        <td>25 Jul – 31 Jul</td>
+        <td><span class="phase-title">Fase 7: Colchón (Buffer)</span><br><span class="days-badge">14 Días</span></td>
+        <td>18 Jul – 31 Jul</td>
         <td>Semana reservada para contingencias: afinación final, validación de trayectorias y checklist de campo.</td>
         <td><ul><li>Rutinas y parámetros congelados (release candidate).</li></ul></td>
       </tr>
@@ -712,14 +731,14 @@
         <td><ul><li>Auto-reconexión USB probada con el hardware "Hot Plug".</li></ul></td>
       </tr>
       <tr>
-        <td><span class="phase-title">Fase 6: Pruebas (Integración)</span><br><span class="days-badge">11 Días</span></td>
-        <td>14 Jul – 24 Jul</td>
+        <td><span class="phase-title">Fase 6: Pruebas (Integración)</span><br><span class="days-badge">4 Días</span></td>
+        <td>14 Jul – 17 Jul</td>
         <td>Pruebas de latencia bajo alta carga de operaciones simultáneas motor/brazo/camaras.</td>
         <td><ul><li>Latencia comprobada del control embebido en logs.</li></ul></td>
       </tr>
       <tr>
-        <td><span class="phase-title">Fase 7: Colchón (Buffer)</span><br><span class="days-badge">7 Días</span></td>
-        <td>25 Jul – 31 Jul</td>
+        <td><span class="phase-title">Fase 7: Colchón (Buffer)</span><br><span class="days-badge">14 Días</span></td>
+        <td>18 Jul – 31 Jul</td>
         <td>Semana reservada para contingencias: estabilidad del Agent, hardening y verificación de telemetría.</td>
         <td><ul><li>Firmware candidato final y procedimiento de flashing validado.</li></ul></td>
       </tr>
@@ -821,7 +840,7 @@
             "id": "p_9",
             "name": "[Chasis] chasis_launch.py libre de errores.",
             "responsible": "Milton y Said",
-        "date": "2026-07-24",
+        "date": "2026-07-17",
             "status": "en-proceso",
             "important": false
       },
@@ -829,7 +848,7 @@
             "id": "p_10",
             "name": "[Chasis] Bolsas de ROS comprobadas.",
             "responsible": "Milton y Said",
-        "date": "2026-07-24",
+        "date": "2026-07-17",
             "status": "en-proceso",
             "important": false
       },
@@ -837,7 +856,7 @@
             "id": "p_11",
             "name": "[Chasis] Firmware y binarios de campo listos.",
             "responsible": "Milton y Said",
-        "date": "2026-07-24",
+        "date": "2026-07-17",
             "status": "en-proceso",
             "important": false
       },
@@ -885,7 +904,7 @@
             "id": "p_17",
             "name": "[Brazo Robótico] Tareas \"Heist\" y \"RoverCooked\" demostradas.",
             "responsible": "Angel y Raul",
-        "date": "2026-07-24",
+        "date": "2026-07-17",
             "status": "en-proceso",
             "important": false
       },
@@ -893,7 +912,7 @@
             "id": "p_18",
             "name": "[Brazo Robótico] Operación final en evento.",
             "responsible": "Angel y Raul",
-        "date": "2026-07-24",
+        "date": "2026-07-17",
             "status": "en-proceso",
             "important": false
       },
@@ -941,7 +960,7 @@
             "id": "p_24",
             "name": "[micro-ROS + STM32] Latencia comprobada del control embebido en logs.",
             "responsible": "Luis y Gerardo",
-        "date": "2026-07-24",
+        "date": "2026-07-17",
             "status": "en-proceso",
             "important": false
       },
@@ -949,7 +968,7 @@
             "id": "p_25",
             "name": "[micro-ROS + STM32] Archivos .bin generados y probados.",
             "responsible": "Luis y Gerardo",
-        "date": "2026-07-24",
+        "date": "2026-07-17",
             "status": "en-proceso",
             "important": false
       },
@@ -989,7 +1008,7 @@
             "id": "d5",
             "name": "Brazo funcional + PCB (Semana 12)",
             "responsible": "Angel, Raul, Luis, Gerardo",
-        "date": "2026-07-18",
+        "date": "2026-07-17",
             "status": "en-proceso",
             "important": true
       }
