@@ -442,7 +442,9 @@
            }
            
            // 2. Encontrar Entregables en esta fecha
-           const currentDeliverables = JSON.parse(localStorage.getItem('circ_deliverables')) || initialDeliverables;
+           const currentDeliverables = (typeof loadDeliverables === 'function')
+             ? loadDeliverables()
+             : (JSON.parse(localStorage.getItem('circ_deliverables')) || initialDeliverables);
            let activeDelivs = currentDeliverables.filter(d => d.date === clickedDateStr);
            
            if(activeDelivs.length > 0) {
@@ -486,7 +488,9 @@
           let allEvents = [];
           
           // INYECTAR SOLO ENTREGABLES (PUNTOS)
-          const currentDeliverables = JSON.parse(localStorage.getItem('circ_deliverables')) || initialDeliverables;
+          const currentDeliverables = (typeof loadDeliverables === 'function')
+            ? loadDeliverables()
+            : (JSON.parse(localStorage.getItem('circ_deliverables')) || initialDeliverables);
           currentDeliverables.forEach(d => {
              // Colored dot indicator
              let clr = '#ffc107'; // en-proceso
@@ -667,7 +671,7 @@
         <td><span class="phase-title">Fase 5: UI & Feedback</span><br><span class="days-badge">10 Días</span></td>
         <td>30 Jun – 9 Jul</td>
         <td>Feedback de Torque del Gripper al Dashboard. Switch en vivo entre modo "Teleop" a "Waypoints".</td>
-        <td><ul><li>Módulo brazo en UI Foxglove y alertas de colisión/torque.</li></ul></td>
+        <td><ul><li>Módulo brazo y alertas de colisión/torque.</li></ul></td>
       </tr>
       <tr>
         <td><span class="phase-title">Fase 6: Pruebas (Integración)</span><br><span class="days-badge">4 Días</span></td>
@@ -855,14 +859,6 @@
             "important": false
       },
       {
-            "id": "p_11",
-            "name": "[Chasis] Firmware y binarios de campo listos.",
-            "responsible": "Milton y Said",
-        "date": "2026-07-27",
-            "status": "en-proceso",
-            "important": false
-      },
-      {
             "id": "p_12",
             "name": "[Brazo Robótico] Modelo visualizado y conectado en RViz sin errores.",
             "responsible": "Angel y Raul",
@@ -907,14 +903,6 @@
             "name": "[Brazo Robótico] Tareas \"Heist\" y \"RoverCooked\" demostradas.",
             "responsible": "Angel y Raul",
         "date": "2026-07-13",
-            "status": "en-proceso",
-            "important": false
-      },
-      {
-            "id": "p_18",
-            "name": "[Brazo Robótico] Operación final en evento.",
-            "responsible": "Angel y Raul",
-        "date": "2026-07-27",
             "status": "en-proceso",
             "important": false
       },
@@ -967,14 +955,6 @@
             "important": false
       },
       {
-            "id": "p_25",
-            "name": "[micro-ROS + STM32] Archivos .bin generados y probados.",
-            "responsible": "Luis y Gerardo",
-        "date": "2026-07-27",
-            "status": "en-proceso",
-            "important": false
-      },
-      {
             "id": "d1",
             "name": "Control de Xbox + Integración IMU (Telecomms)",
             "responsible": "Luis y Gerardo",
@@ -1016,7 +996,20 @@
       }
 ];
 
-    let deliverables = JSON.parse(localStorage.getItem('circ_deliverables')) || initialDeliverables;
+    const removedDeliverableIds = new Set(['p_11', 'p_18', 'p_25']);
+
+    function loadDeliverables() {
+      const stored = JSON.parse(localStorage.getItem('circ_deliverables'));
+      const base = stored || initialDeliverables;
+      const filtered = base.filter(d => !removedDeliverableIds.has(d.id));
+      // Si en el navegador estaban guardados, los eliminamos para que no reaparezcan
+      if (stored && filtered.length !== base.length) {
+        localStorage.setItem('circ_deliverables', JSON.stringify(filtered));
+      }
+      return filtered;
+    }
+
+    let deliverables = loadDeliverables();
 
     function renderTable() {
         const container = document.getElementById('tablesContainer');
