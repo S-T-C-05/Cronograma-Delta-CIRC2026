@@ -308,7 +308,7 @@
 <div class="container">
   <h1>Cronograma de Desarrollo de Software (CIRC 2026)</h1>
   <div class="header-info">
-    <strong>Fecha de Partida:</strong> Hoy (<span id="today-date">—</span>) <br>
+    <strong>Fecha de Partida:</strong> <span id="start-date">—</span> <br>
     <strong>Competencia:</strong> <span id="competition-date">—</span> <br>
     <strong>Días restantes para la competencia:</strong> <span id="days-remaining">—</span>
   </div>
@@ -332,6 +332,8 @@
       const msPerDay = 24 * 60 * 60 * 1000;
       const today = new Date();
       const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      const startDate = new Date(2026, 4, 1); // 1 May 2026 (month is 0-based)
+      const startMidnight = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
       const competitionDate = new Date(2026, 7, 7); // 7 Aug 2026 (month is 0-based)
       const competitionMidnight = new Date(competitionDate.getFullYear(), competitionDate.getMonth(), competitionDate.getDate());
 
@@ -351,11 +353,11 @@
         }
       };
 
-      const todayEl = document.getElementById('today-date');
+      const startEl = document.getElementById('start-date');
       const competitionEl = document.getElementById('competition-date');
       const remainingEl = document.getElementById('days-remaining');
 
-      if (todayEl) todayEl.textContent = formatEsDate(todayMidnight);
+      if (startEl) startEl.textContent = formatEsDate(startMidnight);
       if (competitionEl) competitionEl.textContent = formatEsDate(competitionMidnight);
 
       if (remainingEl) {
@@ -368,35 +370,35 @@
       var calendarEl = document.getElementById('calendar');
       
       const rawPhases = [
-        { title: 'Chasis Fase 1', start: '2026-04-23', end: '2026-05-14', color: 'var(--chasis-color)', targetId: 'chasis-title' },
-        { title: 'Chasis Fase 2', start: '2026-05-14', end: '2026-05-28', color: 'var(--chasis-color)', targetId: 'chasis-title' },
-        { title: 'Chasis Fase 3', start: '2026-05-28', end: '2026-06-18', color: 'var(--chasis-color)', targetId: 'chasis-title' },
-        { title: 'Chasis Fase 4', start: '2026-06-18', end: '2026-07-03', color: 'var(--chasis-color)', targetId: 'chasis-title' },
-        { title: 'Chasis Fase 5', start: '2026-07-03', end: '2026-07-14', color: 'var(--chasis-color)', targetId: 'chasis-title' },
-        { title: 'Chasis Fase 6', start: '2026-07-14', end: '2026-07-18', color: 'var(--chasis-color)', targetId: 'chasis-title' },
+        { title: 'Chasis Fase 1', start: '2026-05-01', end: '2026-05-19', color: 'var(--chasis-color)', targetId: 'chasis-title' },
+        { title: 'Chasis Fase 2', start: '2026-05-19', end: '2026-05-31', color: 'var(--chasis-color)', targetId: 'chasis-title' },
+        { title: 'Chasis Fase 3', start: '2026-05-31', end: '2026-06-18', color: 'var(--chasis-color)', targetId: 'chasis-title' },
+        { title: 'Chasis Fase 4', start: '2026-06-18', end: '2026-06-30', color: 'var(--chasis-color)', targetId: 'chasis-title' },
+        { title: 'Chasis Fase 5', start: '2026-06-30', end: '2026-07-10', color: 'var(--chasis-color)', targetId: 'chasis-title' },
+        { title: 'Chasis Fase 6', start: '2026-07-10', end: '2026-07-14', color: 'var(--chasis-color)', targetId: 'chasis-title' },
          
-        { title: 'Brazo Fase 1', start: '2026-04-23', end: '2026-05-14', color: 'var(--brazo-color)', targetId: 'brazo-title' },
-        { title: 'Brazo Fase 2', start: '2026-05-14', end: '2026-05-28', color: 'var(--brazo-color)', targetId: 'brazo-title' },
-        { title: 'Brazo Fase 3', start: '2026-05-28', end: '2026-06-18', color: 'var(--brazo-color)', targetId: 'brazo-title' },
-        { title: 'Brazo Fase 4', start: '2026-06-18', end: '2026-07-03', color: 'var(--brazo-color)', targetId: 'brazo-title' },
-        { title: 'Brazo Fase 5', start: '2026-07-03', end: '2026-07-14', color: 'var(--brazo-color)', targetId: 'brazo-title' },
-         { title: 'Brazo Fase 6', start: '2026-07-14', end: '2026-07-18', color: 'var(--brazo-color)', targetId: 'brazo-title' },
+        { title: 'Brazo Fase 1', start: '2026-05-01', end: '2026-05-19', color: 'var(--brazo-color)', targetId: 'brazo-title' },
+        { title: 'Brazo Fase 2', start: '2026-05-19', end: '2026-05-31', color: 'var(--brazo-color)', targetId: 'brazo-title' },
+        { title: 'Brazo Fase 3', start: '2026-05-31', end: '2026-06-18', color: 'var(--brazo-color)', targetId: 'brazo-title' },
+        { title: 'Brazo Fase 4', start: '2026-06-18', end: '2026-06-30', color: 'var(--brazo-color)', targetId: 'brazo-title' },
+        { title: 'Brazo Fase 5', start: '2026-06-30', end: '2026-07-10', color: 'var(--brazo-color)', targetId: 'brazo-title' },
+         { title: 'Brazo Fase 6', start: '2026-07-10', end: '2026-07-14', color: 'var(--brazo-color)', targetId: 'brazo-title' },
 
-         { title: 'mROS Fase 1', start: '2026-04-23', end: '2026-05-14', color: 'var(--microros-color)', targetId: 'microros-title' },
-         { title: 'mROS Fase 2', start: '2026-05-14', end: '2026-05-28', color: 'var(--microros-color)', targetId: 'microros-title' },
-         { title: 'mROS Fase 3', start: '2026-05-28', end: '2026-06-18', color: 'var(--microros-color)', targetId: 'microros-title' },
-         { title: 'mROS Fase 4', start: '2026-06-18', end: '2026-07-03', color: 'var(--microros-color)', targetId: 'microros-title' },
-         { title: 'mROS Fase 5', start: '2026-07-03', end: '2026-07-14', color: 'var(--microros-color)', targetId: 'microros-title' },
-         { title: 'mROS Fase 6', start: '2026-07-14', end: '2026-07-18', color: 'var(--microros-color)', targetId: 'microros-title' },
+         { title: 'mROS Fase 1', start: '2026-05-01', end: '2026-05-19', color: 'var(--microros-color)', targetId: 'microros-title' },
+         { title: 'mROS Fase 2', start: '2026-05-19', end: '2026-05-31', color: 'var(--microros-color)', targetId: 'microros-title' },
+         { title: 'mROS Fase 3', start: '2026-05-31', end: '2026-06-18', color: 'var(--microros-color)', targetId: 'microros-title' },
+         { title: 'mROS Fase 4', start: '2026-06-18', end: '2026-06-30', color: 'var(--microros-color)', targetId: 'microros-title' },
+         { title: 'mROS Fase 5', start: '2026-06-30', end: '2026-07-10', color: 'var(--microros-color)', targetId: 'microros-title' },
+         { title: 'mROS Fase 6', start: '2026-07-10', end: '2026-07-14', color: 'var(--microros-color)', targetId: 'microros-title' },
 
-         { title: 'Colchón (Buffer) Pre-Competencia', start: '2026-07-18', end: '2026-08-01', color: 'var(--secondary)', targetId: 'chasis-title' },
+         { title: 'Colchón (Buffer) Pre-Competencia', start: '2026-07-14', end: '2026-07-24', color: 'var(--secondary)', targetId: 'chasis-title' },
 
-         { title: '🏆 Competencia CIRC', start: '2026-08-01', end: '2026-08-08', color: '#dc3545', targetId: 'chasis-title' }
+         { title: '🏆 Competencia CIRC', start: '2026-07-24', end: '2026-07-28', color: '#dc3545', targetId: 'chasis-title' }
       ];
 
       var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
-        initialDate: '2026-04-23',
+        initialDate: '2026-05-01',
         locale: 'es',
         firstDay: 1,
         headerToolbar: {
@@ -522,14 +524,14 @@
           });
 
            // COLCHÓN VISIBLE EN CALENDARIO (2 semanas antes del CIRC)
-          allEvents.push({
+           allEvents.push({
              title: 'Colchón (Buffer)',
-             start: '2026-07-18',
-             end: '2026-08-01',
+             start: '2026-07-14',
+             end: '2026-07-24',
              allDay: true,
              backgroundColor: 'var(--secondary)',
              extendedProps: { type: 'buffer' }
-          });
+           });
 
           successCallback(allEvents);
         }
@@ -575,50 +577,50 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="phase-title">Fase 1: Fundamentos</span><br><span class="days-badge">21 Días</span></td>
-        <td>23 Abr – 13 May</td>
+        <td><span class="phase-title">Fase 1: Fundamentos</span><br><span class="days-badge">18 Días</span></td>
+        <td>1 May – 18 May</td>
         <td>Configuración inicial del workspace Nav2. Definición del modelo cinemático diferencial y nodos de teleoperación básicos.</td>
         <td><ul><li>Workspace ROS 2 listo.</li><li>Teleop por comandos activo.</li></ul></td>
       </tr>
       <tr>
-        <td><span class="phase-title">Fase 2: Seguridad y Control</span><br><span class="days-badge">14 Días</span></td>
-        <td>14 May – 27 May</td>
+        <td><span class="phase-title">Fase 2: Seguridad y Control</span><br><span class="days-badge">12 Días</span></td>
+        <td>19 May – 30 May</td>
         <td>Desarrollo de nodos de hardware, E-stop (parada de emergencia por software) y configuración de sensores.</td>
         <td><ul><li>Parada de emergencia operativa.</li><li>Estructura TF base del chasis.</li></ul></td>
       </tr>
       <tr>
-        <td><span class="phase-title">Fase 3: Percepción</span><br><span class="days-badge">21 Días</span></td>
-        <td>28 May – 17 Jun</td>
+        <td><span class="phase-title">Fase 3: Percepción</span><br><span class="days-badge">18 Días</span></td>
+        <td>31 May – 17 Jun</td>
         <td>Integración de IMU y Encoders. Fusión de odometría vía EKF.</td>
         <td><ul><li>Odometría publicando a 50Hz reales y filtrada.</li></ul></td>
       </tr>
       <tr>
-        <td><span class="phase-title">Fase 4: Inteligencia</span><br><span class="days-badge">15 Días</span></td>
-        <td>18 Jun – 2 Jul</td>
+        <td><span class="phase-title">Fase 4: Inteligencia</span><br><span class="days-badge">12 Días</span></td>
+        <td>18 Jun – 29 Jun</td>
         <td>Ajuste de navegación autónoma. Implementación de GPS Waypoints y tracking para la prueba de "Exploration".</td>
         <td><ul><li>Follow Waypoints integrado (Nav2).</li><li>Scripts de track autónomo.</li></ul></td>
       </tr>
       <tr>
-        <td><span class="phase-title">Fase 5: UI & Feedback</span><br><span class="days-badge">11 Días</span></td>
-        <td>3 Jul – 13 Jul</td>
+        <td><span class="phase-title">Fase 5: UI & Feedback</span><br><span class="days-badge">10 Días</span></td>
+        <td>30 Jun – 9 Jul</td>
         <td>Dashboard de control y monitor de vibración activo (p/ Refreshment Delivery).</td>
         <td><ul><li>Foxglove web UI funcional para teleop de chasis.</li></ul></td>
       </tr>
       <tr>
         <td><span class="phase-title">Fase 6: Pruebas (Integración)</span><br><span class="days-badge">4 Días</span></td>
-        <td>14 Jul – 17 Jul</td>
+        <td>10 Jul – 13 Jul</td>
         <td>Integración en entorno completo "Full Stack". Depuración y Dry-runs en terreno irregular.</td>
         <td><ul><li>chasis_launch.py libre de errores.</li><li>Bolsas de ROS comprobadas.</li></ul></td>
       </tr>
       <tr>
-        <td><span class="phase-title">Fase 7: Colchón (Buffer)</span><br><span class="days-badge">14 Días</span></td>
-        <td>18 Jul – 31 Jul</td>
+        <td><span class="phase-title">Fase 7: Colchón (Buffer)</span><br><span class="days-badge">10 Días</span></td>
+        <td>14 Jul – 23 Jul</td>
         <td>Semana reservada para contingencias: correcciones rápidas, pruebas finales, documentación y preparación logística.</td>
         <td><ul><li>Checklist final y paquete de despliegue listo.</li></ul></td>
       </tr>
       <tr>
-        <td><span class="phase-title">Fase 8: Competencia</span><br><span class="days-badge">7 Días</span></td>
-        <td>1 Ago – 7 Ago</td>
+        <td><span class="phase-title">Fase 8: Competencia</span><br><span class="days-badge">4 Días</span></td>
+        <td>24 Jul – 27 Jul</td>
         <td>Optimización, preparación de repuestos y ajustes en Drumheller (CIRC).</td>
         <td><ul><li>Firmware y binarios de campo listos.</li></ul></td>
       </tr>
@@ -638,50 +640,50 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="phase-title">Fase 1: Fundamentos</span><br><span class="days-badge">21 Días</span></td>
-        <td>23 Abr – 13 May</td>
+        <td><span class="phase-title">Fase 1: Fundamentos</span><br><span class="days-badge">18 Días</span></td>
+        <td>1 May – 18 May</td>
         <td>Creación y validación del árbol de Joints. Configuración exhaustiva de URDF/SRDF.</td>
         <td><ul><li>Modelo visualizado y conectado en RViz sin errores.</li></ul></td>
       </tr>
       <tr>
-        <td><span class="phase-title">Fase 2: Estructura MoveIt2</span><br><span class="days-badge">14 Días</span></td>
-        <td>14 May – 27 May</td>
+        <td><span class="phase-title">Fase 2: Estructura MoveIt2</span><br><span class="days-badge">12 Días</span></td>
+        <td>19 May – 30 May</td>
         <td>Inicialización de MoveIt2. Conexión de ros2_control base en simulación.</td>
         <td><ul><li>Comandos simulados exitosos.</li></ul></td>
       </tr>
       <tr>
-        <td><span class="phase-title">Fase 3: Control Bajo Nivel</span><br><span class="days-badge">21 Días</span></td>
-        <td>28 May – 17 Jun</td>
+        <td><span class="phase-title">Fase 3: Control Bajo Nivel</span><br><span class="days-badge">18 Días</span></td>
+        <td>31 May – 17 Jun</td>
         <td>Implementación de TRAC-IK y validación del controlador por trayectorias cartesianas. Tuning del Gripper.</td>
         <td><ul><li>Brazo controlable por Joystick con latencia mínima.</li></ul></td>
       </tr>
       <tr>
-        <td><span class="phase-title">Fase 4: Misiones Especificas</span><br><span class="days-badge">15 Días</span></td>
-        <td>18 Jun – 2 Jul</td>
+        <td><span class="phase-title">Fase 4: Misiones Especificas</span><br><span class="days-badge">12 Días</span></td>
+        <td>18 Jun – 29 Jun</td>
         <td>Programación de Poses repetitivas (RoverCooked) y Morse Sender en el End-Effector (Heist).</td>
         <td><ul><li>Action Server de rutinas. Librería YAML configurada.</li></ul></td>
       </tr>
       <tr>
-        <td><span class="phase-title">Fase 5: UI & Feedback</span><br><span class="days-badge">11 Días</span></td>
-        <td>3 Jul – 13 Jul</td>
+        <td><span class="phase-title">Fase 5: UI & Feedback</span><br><span class="days-badge">10 Días</span></td>
+        <td>30 Jun – 9 Jul</td>
         <td>Feedback de Torque del Gripper al Dashboard. Switch en vivo entre modo "Teleop" a "Waypoints".</td>
         <td><ul><li>Módulo brazo en UI Foxglove y alertas de colisión/torque.</li></ul></td>
       </tr>
       <tr>
         <td><span class="phase-title">Fase 6: Pruebas (Integración)</span><br><span class="days-badge">4 Días</span></td>
-        <td>14 Jul – 17 Jul</td>
+        <td>10 Jul – 13 Jul</td>
         <td>Manipulación de objetos del mundo real (botellas, rocas calibradas, teclados).</td>
         <td><ul><li>Tareas "Heist" y "RoverCooked" demostradas.</li></ul></td>
       </tr>
       <tr>
-        <td><span class="phase-title">Fase 7: Colchón (Buffer)</span><br><span class="days-badge">14 Días</span></td>
-        <td>18 Jul – 31 Jul</td>
+        <td><span class="phase-title">Fase 7: Colchón (Buffer)</span><br><span class="days-badge">10 Días</span></td>
+        <td>14 Jul – 23 Jul</td>
         <td>Semana reservada para contingencias: afinación final, validación de trayectorias y checklist de campo.</td>
         <td><ul><li>Rutinas y parámetros congelados (release candidate).</li></ul></td>
       </tr>
       <tr>
-        <td><span class="phase-title">Fase 8: Competencia</span><br><span class="days-badge">7 Días</span></td>
-        <td>1 Ago – 7 Ago</td>
+        <td><span class="phase-title">Fase 8: Competencia</span><br><span class="days-badge">4 Días</span></td>
+        <td>24 Jul – 27 Jul</td>
         <td>Calibración fina in-situ de límites IK y Torque.</td>
         <td><ul><li>Operación final en evento.</li></ul></td>
       </tr>
@@ -701,50 +703,50 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="phase-title">Fase 1: Fundamentos</span><br><span class="days-badge">21 Días</span></td>
-        <td>23 Abr – 13 May</td>
+        <td><span class="phase-title">Fase 1: Fundamentos</span><br><span class="days-badge">18 Días</span></td>
+        <td>1 May – 18 May</td>
         <td>Setup e inicialización de STM32CubeMX, FreeRTOS y librerías estáticas de micro-ROS. Config. UART/USB.</td>
         <td><ul><li>Hardware con SO en tiempo real funcionando. Ping PC.</li></ul></td>
       </tr>
       <tr>
-        <td><span class="phase-title">Fase 2: Hardware & Seguridad</span><br><span class="days-badge">14 Días</span></td>
-        <td>14 May – 27 May</td>
+        <td><span class="phase-title">Fase 2: Hardware & Seguridad</span><br><span class="days-badge">12 Días</span></td>
+        <td>19 May – 30 May</td>
         <td>Estructuración y prioridades de FreeRTOS. Integrar interrupciones por E-stop.</td>
         <td><ul><li>Firmware responsivo < 10ms a freno de emergencia.</li></ul></td>
       </tr>
       <tr>
-        <td><span class="phase-title">Fase 3: Control PID</span><br><span class="days-badge">21 Días</span></td>
-        <td>28 May – 17 Jun</td>
+        <td><span class="phase-title">Fase 3: Control PID</span><br><span class="days-badge">18 Días</span></td>
+        <td>31 May – 17 Jun</td>
         <td>Desarrollo de cálculo PID por interrupción de timer. Asignación total de Publishers / Subscribers.</td>
         <td><ul><li>Lazo cerrado de velocidad estabilizado desde PC con PWM real.</li></ul></td>
       </tr>
       <tr>
-        <td><span class="phase-title">Fase 4: Telemetría</span><br><span class="days-badge">15 Días</span></td>
-        <td>18 Jun – 2 Jul</td>
+        <td><span class="phase-title">Fase 4: Telemetría</span><br><span class="days-badge">12 Días</span></td>
+        <td>18 Jun – 29 Jun</td>
         <td>Gestión de envío de IMU / Encoders al Agent, evitando cuellos de botella en FreeRTOS.</td>
         <td><ul><li>Estabilidad en la red micro-ROS (sin caídas continuas).</li></ul></td>
       </tr>
       <tr>
-        <td><span class="phase-title">Fase 5: UI & Feedback</span><br><span class="days-badge">11 Días</span></td>
-        <td>3 Jul – 13 Jul</td>
+        <td><span class="phase-title">Fase 5: UI & Feedback</span><br><span class="days-badge">10 Días</span></td>
+        <td>30 Jun – 9 Jul</td>
         <td>Servicio automatizado Systemd del Agent en PC. Volcados de fallos de STM32 hacia la UI (batería).</td>
         <td><ul><li>Auto-reconexión USB probada con el hardware "Hot Plug".</li></ul></td>
       </tr>
       <tr>
         <td><span class="phase-title">Fase 6: Pruebas (Integración)</span><br><span class="days-badge">4 Días</span></td>
-        <td>14 Jul – 17 Jul</td>
+        <td>10 Jul – 13 Jul</td>
         <td>Pruebas de latencia bajo alta carga de operaciones simultáneas motor/brazo/camaras.</td>
         <td><ul><li>Latencia comprobada del control embebido en logs.</li></ul></td>
       </tr>
       <tr>
-        <td><span class="phase-title">Fase 7: Colchón (Buffer)</span><br><span class="days-badge">14 Días</span></td>
-        <td>18 Jul – 31 Jul</td>
+        <td><span class="phase-title">Fase 7: Colchón (Buffer)</span><br><span class="days-badge">10 Días</span></td>
+        <td>14 Jul – 23 Jul</td>
         <td>Semana reservada para contingencias: estabilidad del Agent, hardening y verificación de telemetría.</td>
         <td><ul><li>Firmware candidato final y procedimiento de flashing validado.</li></ul></td>
       </tr>
       <tr>
-        <td><span class="phase-title">Fase 8: Competencia</span><br><span class="days-badge">7 Días</span></td>
-        <td>1 Ago – 7 Ago</td>
+        <td><span class="phase-title">Fase 8: Competencia</span><br><span class="days-badge">4 Días</span></td>
+        <td>24 Jul – 27 Jul</td>
         <td>Protección de hardware en Drumheller (Temperatura/Polvo) y blindaje de código firmware.</td>
         <td><ul><li>Archivos .bin generados y probados.</li></ul></td>
       </tr>
@@ -776,7 +778,7 @@
             "id": "p_1",
             "name": "[Chasis] Workspace ROS 2 listo.",
             "responsible": "Milton y Said",
-        "date": "2026-05-13",
+        "date": "2026-05-18",
             "status": "en-proceso",
             "important": false
       },
@@ -784,7 +786,7 @@
             "id": "p_2",
             "name": "[Chasis] Teleop por comandos activo.",
             "responsible": "Milton y Said",
-        "date": "2026-05-13",
+        "date": "2026-05-18",
             "status": "en-proceso",
             "important": false
       },
@@ -792,7 +794,7 @@
             "id": "p_3",
             "name": "[Chasis] Parada de emergencia operativa.",
             "responsible": "Milton y Said",
-        "date": "2026-05-27",
+        "date": "2026-05-30",
             "status": "en-proceso",
             "important": false
       },
@@ -800,7 +802,7 @@
             "id": "p_4",
             "name": "[Chasis] Estructura TF base del chasis.",
             "responsible": "Milton y Said",
-        "date": "2026-05-27",
+        "date": "2026-05-30",
             "status": "en-proceso",
             "important": false
       },
@@ -816,7 +818,7 @@
             "id": "p_6",
             "name": "[Chasis] Follow Waypoints integrado (Nav2).",
             "responsible": "Milton y Said",
-        "date": "2026-07-02",
+        "date": "2026-06-29",
             "status": "en-proceso",
             "important": false
       },
@@ -824,7 +826,7 @@
             "id": "p_7",
             "name": "[Chasis] Scripts de track autónomo.",
             "responsible": "Milton y Said",
-        "date": "2026-07-02",
+        "date": "2026-06-29",
             "status": "en-proceso",
             "important": false
       },
@@ -832,7 +834,7 @@
             "id": "p_8",
             "name": "[Chasis] Foxglove web UI funcional para teleop de chasis.",
             "responsible": "Milton y Said",
-        "date": "2026-07-13",
+        "date": "2026-07-09",
             "status": "en-proceso",
             "important": false
       },
@@ -840,7 +842,7 @@
             "id": "p_9",
             "name": "[Chasis] chasis_launch.py libre de errores.",
             "responsible": "Milton y Said",
-        "date": "2026-07-17",
+        "date": "2026-07-13",
             "status": "en-proceso",
             "important": false
       },
@@ -848,7 +850,7 @@
             "id": "p_10",
             "name": "[Chasis] Bolsas de ROS comprobadas.",
             "responsible": "Milton y Said",
-        "date": "2026-07-17",
+        "date": "2026-07-13",
             "status": "en-proceso",
             "important": false
       },
@@ -856,7 +858,7 @@
             "id": "p_11",
             "name": "[Chasis] Firmware y binarios de campo listos.",
             "responsible": "Milton y Said",
-        "date": "2026-07-17",
+        "date": "2026-07-27",
             "status": "en-proceso",
             "important": false
       },
@@ -864,7 +866,7 @@
             "id": "p_12",
             "name": "[Brazo Robótico] Modelo visualizado y conectado en RViz sin errores.",
             "responsible": "Angel y Raul",
-        "date": "2026-05-13",
+        "date": "2026-05-18",
             "status": "en-proceso",
             "important": false
       },
@@ -872,7 +874,7 @@
             "id": "p_13",
             "name": "[Brazo Robótico] Comandos simulados exitosos.",
             "responsible": "Angel y Raul",
-        "date": "2026-05-27",
+        "date": "2026-05-30",
             "status": "en-proceso",
             "important": false
       },
@@ -888,7 +890,7 @@
             "id": "p_15",
             "name": "[Brazo Robótico] Action Server de rutinas. Librería YAML configurada.",
             "responsible": "Angel y Raul",
-        "date": "2026-07-02",
+        "date": "2026-06-29",
             "status": "en-proceso",
             "important": false
       },
@@ -896,7 +898,7 @@
             "id": "p_16",
             "name": "[Brazo Robótico] Módulo brazo en UI Foxglove y alertas de colisión/torque.",
             "responsible": "Angel y Raul",
-        "date": "2026-07-13",
+        "date": "2026-07-09",
             "status": "en-proceso",
             "important": false
       },
@@ -904,7 +906,7 @@
             "id": "p_17",
             "name": "[Brazo Robótico] Tareas \"Heist\" y \"RoverCooked\" demostradas.",
             "responsible": "Angel y Raul",
-        "date": "2026-07-17",
+        "date": "2026-07-13",
             "status": "en-proceso",
             "important": false
       },
@@ -912,7 +914,7 @@
             "id": "p_18",
             "name": "[Brazo Robótico] Operación final en evento.",
             "responsible": "Angel y Raul",
-        "date": "2026-07-17",
+        "date": "2026-07-27",
             "status": "en-proceso",
             "important": false
       },
@@ -920,7 +922,7 @@
             "id": "p_19",
             "name": "[micro-ROS + STM32] Hardware con SO en tiempo real funcionando. Ping PC.",
             "responsible": "Luis y Gerardo",
-        "date": "2026-05-13",
+        "date": "2026-05-18",
             "status": "en-proceso",
             "important": false
       },
@@ -928,7 +930,7 @@
             "id": "p_20",
             "name": "[micro-ROS + STM32] Firmware responsivo < 10ms a freno de emergencia.",
             "responsible": "Luis y Gerardo",
-        "date": "2026-05-27",
+        "date": "2026-05-30",
             "status": "en-proceso",
             "important": false
       },
@@ -944,7 +946,7 @@
             "id": "p_22",
             "name": "[micro-ROS + STM32] Estabilidad en la red micro-ROS (sin caídas continuas).",
             "responsible": "Luis y Gerardo",
-        "date": "2026-07-02",
+        "date": "2026-06-29",
             "status": "en-proceso",
             "important": false
       },
@@ -952,7 +954,7 @@
             "id": "p_23",
             "name": "[micro-ROS + STM32] Auto-reconexión USB probada con el hardware \"Hot Plug\".",
             "responsible": "Luis y Gerardo",
-        "date": "2026-07-13",
+        "date": "2026-07-09",
             "status": "en-proceso",
             "important": false
       },
@@ -960,7 +962,7 @@
             "id": "p_24",
             "name": "[micro-ROS + STM32] Latencia comprobada del control embebido en logs.",
             "responsible": "Luis y Gerardo",
-        "date": "2026-07-17",
+        "date": "2026-07-13",
             "status": "en-proceso",
             "important": false
       },
@@ -968,7 +970,7 @@
             "id": "p_25",
             "name": "[micro-ROS + STM32] Archivos .bin generados y probados.",
             "responsible": "Luis y Gerardo",
-        "date": "2026-07-17",
+        "date": "2026-07-27",
             "status": "en-proceso",
             "important": false
       },
@@ -976,7 +978,7 @@
             "id": "d1",
             "name": "Control de Xbox + Integración IMU (Telecomms)",
             "responsible": "Luis y Gerardo",
-            "date": "2026-05-23",
+            "date": "2026-05-24",
             "status": "en-proceso",
             "important": false
       },
@@ -984,7 +986,7 @@
             "id": "d2",
             "name": "Chasis funcional (Semana 5)",
             "responsible": "Milton y Said",
-            "date": "2026-06-06",
+            "date": "2026-06-05",
             "status": "en-proceso",
             "important": true
       },
@@ -992,7 +994,7 @@
             "id": "d3",
             "name": "Simulación funcional del brazo (Semana 5)",
             "responsible": "Angel y Raul",
-            "date": "2026-06-06",
+            "date": "2026-06-05",
             "status": "en-proceso",
             "important": false
       },
@@ -1000,7 +1002,7 @@
             "id": "d4",
             "name": "Chasis funcional + PCB + sensores (Semana 10)",
             "responsible": "Milton, Said, Luis, Gerardo",
-            "date": "2026-07-11",
+            "date": "2026-07-10",
             "status": "en-proceso",
             "important": true
       },
@@ -1008,7 +1010,7 @@
             "id": "d5",
             "name": "Brazo funcional + PCB (Semana 12)",
             "responsible": "Angel, Raul, Luis, Gerardo",
-        "date": "2026-07-17",
+        "date": "2026-07-23",
             "status": "en-proceso",
             "important": true
       }
